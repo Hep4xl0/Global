@@ -1,15 +1,16 @@
 import os
 
-def clear():
+def clear(): #funcao para realizar o apagamento das informações anteriores, com objetivo de deixar mais limpa a nevagacao pelo menu
     os.system('cls' if os.name == 'nt' else 'clear')
 
+#Lista com dicts dentro para as funções puxar os dados que desejam mostrar
 paises = [
-    {'Pais': 'China', 'Porcentagem': 30},
-    {'Pais': 'Indonesia', 'Porcentagem': 10},
-    {'Pais': 'India', 'Porcentagem': 3},
-    {'Pais': 'Filipinas', 'Porcentagem': 5},
-    {'Pais': 'EUA', 'Porcentagem': 1},
-    {'Pais': 'Brasil*', 'Porcentagem': 1},
+    {'Pais': 'China', 'Porcentagem': 30, 'Por ano' : 3530000},
+    {'Pais': 'Indonesia', 'Porcentagem': 10, 'Por ano' : 1290000},
+    {'Pais': 'Filipinas', 'Porcentagem': 5, 'Por ano' : 750000},
+    {'Pais': 'India', 'Porcentagem': 3, 'Por ano' :  620000},
+    {'Pais': 'EUA', 'Porcentagem': 1, 'Por ano' : 380000 },
+    {'Pais': 'Brasil*', 'Porcentagem': 1, 'Por ano' : 480000 },
     
 ]
 
@@ -33,15 +34,18 @@ brasil = [
     {'Estado': 'Pernambuco', 'Culpa': 'Pernambuco é contribuinte significativo para a poluição dos oceanos devido aos portos e atividades industriais o que leva ao descarte inadequado de resíduos industriais e urbanos'}
 ]
 
-def calcular_porcentagem():
+def calcular_porcentagem():#funcao para calcular a porcentagem de peso do lixo colocado pelo usuario em comparacao com a quantidade total de lixo nos oceanos
     clear()
-    total_oceanos = 150000000  # toneladas
-    num = float(input('Digite o número de toneladas para calcular a porcentagem em relação ao total de lixo nos oceanos: '))
-    porcentagem = (num / total_oceanos) * 100
-    print(f'{num} toneladas equivalem a {porcentagem}% da quantidade total de lixo nos oceanos ({total_oceanos} toneladas)')
+    total_oceanos = 86000000  # toneladas
+    oceanos_total = 86000000000 # kg
+
+    num = float(input('Digite o número de quilos para calcular a porcentagem em relação ao total de lixo nos oceanos: '))
+    porcentagem = (num / oceanos_total) * 100
+    
+    print(f'{num} quilos equivalem a {porcentagem}% da quantidade total de lixo nos oceanos que são: {total_oceanos} toneladas)')
     input('Pressione Enter para retornar ao menu.')
 
-def exibir_info_brasil():
+def exibir_info_brasil():#funcao para puxar os dados da array brasil
     clear()
     print('Principais estados brasileiros contribuindo para a poluição marinha e a causa de sua contribuição:')
     for estado in brasil:
@@ -53,7 +57,7 @@ def exibir_info_brasil():
                 print(f'{valor}')
     input('Pressione Enter para retornar ao menu.')
 
-def exibir_info_paises():
+def exibir_info_paises():#funcao para puxar os dados da array paises
     clear()
     print('Os principais países responsáveis pela poluição oceânica são:')
     for item in paises:
@@ -62,12 +66,14 @@ def exibir_info_paises():
                 if chave == 'Pais':
                     print(f'{valor}: ', end='')
                 elif chave == 'Porcentagem':
-                    print(f'{valor}%', end=' | ')
+                    print(f'{valor}% Poluição', end=', ')
+                elif chave == 'Por ano':
+                    print(f'{valor} toneladas/ano', end=' | ')
         else:
             print(item)
     input('Pressione Enter para retornar ao menu.')
 
-def exibir_info_empresas():
+def exibir_info_empresas():#funcao para puxar os dados da array empresas
     clear()
     print('As principais empresas responsáveis pela poluição oceânica são:')
     for item in empresas:
@@ -81,13 +87,13 @@ def exibir_info_empresas():
             print(item)
     input('Pressione Enter para retornar ao menu.')
 
-def menu():
+def menu():#funcao para navegacao do usuario
     clear()
     print('O que deseja realizar?\n1. Ver os principais países poluentes dos oceanos.\n2. Ver os principais estados brasileiros poluentes dos oceanos e o motivo para isso.\n3. Ver as principais empresas poluentes dos oceanos.\n4. Calcular a porcentagem do lixo produzido em comparação com o total de lixo nos oceanos.\n5. Sair do programa.')
     escolha = input('> ')
     return escolha
 
-while True:
+while True:#local onde o programa puxa e utiliza as funções para obter diferentes informacoes
     opcao = menu()
     if opcao == '1':
         exibir_info_paises()
